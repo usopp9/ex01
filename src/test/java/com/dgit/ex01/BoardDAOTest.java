@@ -27,10 +27,10 @@ public class BoardDAOTest {
 		
 		dao.create(vo);
 	}
-	//@Test
+	@Test
 	public void testread() throws Exception{
-		BoardVO vo  = dao.read(1);
-		dao.readCnt(1);
+		BoardVO vo  = dao.read(2);
+		dao.readCnt(2);
 		System.out.println(vo);		
 	}
 	//@Test
@@ -46,7 +46,7 @@ public class BoardDAOTest {
 	public void testdelete() throws Exception{
 		dao.delete(1);	
 	}
-	@Test
+	//@Test
 	public void testSelectAll() throws Exception{
 		List<BoardVO> list = dao.listAll();
 		for(BoardVO b:list){
