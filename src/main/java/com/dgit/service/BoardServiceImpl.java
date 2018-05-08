@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.BoardVO;
+import com.dgit.domain.Criteria;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.BoardDAO;
 
 @Service
@@ -48,6 +50,30 @@ public class BoardServiceImpl implements BoardService{
 	public void remove(int bno) throws Exception {
 		
 		dao.delete(bno);
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		
+		return dao.listCriteria(cri);
+	}
+
+	@Override
+	public int totalCount() throws Exception {
+		
+		return dao.totalCount();
+	}
+
+	@Override
+	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
+		
+		return dao.listSearch(cri);
+	}
+
+	@Override
+	public int totalSearchCount(SearchCriteria cri) throws Exception {
+		
+		return dao.totalSearchCount(cri);
 	}
 
 }
