@@ -57,6 +57,54 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header">
+					<h3 class="box-title">ADD NEW REPLY</h3>
+				</div>
+				<div class="box-body">
+					<label>Writer</label>
+					<input class="form-control" type="text" placeholder="User ID" id="newReplyWriter">
+					
+					<label>Reply Text</label>
+					<input class="form-control" type="text" placeholder="Reply Text" id="newReplyText">
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-primary" id="replyAddBtn">Add Reply</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+<script>
+	$("#replyAddBtn").click(function(){
+		var bnoVal = ${boardVO.bno };
+		var replyerVal = $("#newReplyWriter").val();
+		var replytextVal = $("#newReplyText").val();
+		
+		var sendData = {bno:bnoVal, replyer:replyerVal, replytext:replytextVal};
+		//이형태는 ?bno=bnoVal&replyer=........
+						
+		//@requestBody, JSON.stringify, headers-Content-Type
+		$.ajax({
+			type:"post",
+			/* url:"/ex02/replies" */
+			url:"${pageContext.request.contextPath}/replies",
+			data: JSON.stringify(sendData), //json 형태로 바꿔줌
+			dataType:"text",//xml,text,json
+			headers:{"Content-Type":"application/json"},
+			success:function(result){
+				console.log(result);
+				if(result == "success"){             
+					alert("등록되었습니다.");      
+					$("#newReplyWriter").val("");        
+					$("#newReplyText").val("");
+				}
+			}
+		})
+	})
+</script>
+
 
 <%@ include file="../include/footer.jsp"%>
