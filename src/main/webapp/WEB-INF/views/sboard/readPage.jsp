@@ -207,7 +207,7 @@
 	var rno;
 	$(document).on("click","#replyBtn",function(){
 		rno = $(this).parent().parent().find("strong").html();
-		 var removeno = $(this).parent().parent().parent();        
+		// var removeno = $(this).parent().parent().parent();        
 		var con = confirm("삭제하시겠습니까??");
 		if(con){
 			
@@ -219,7 +219,8 @@
 					console.log(result);
 					if(result=="success"){
 						alert("삭제되었습니다.");   
-						removeno.remove();              
+					//	removeno.remove();         
+						$("#repliesDiv").trigger("click");    
 					}
 				}	
 			})
