@@ -78,7 +78,7 @@
 			</div>
 			<ul class="timeline">
 				<li class="time-label" id="repliesDiv">
-					<span class="bg-green">Replies List</span>
+					<span class="bg-green">Replies List [<span id="replyCnt">${boardVO.replycnt }</span>]</span>
 				</li>
 			</ul>
 			<div class="text-center">
@@ -161,6 +161,8 @@
 		var replyerVal = $("#newReplyWriter").val();
 		var replytextVal = $("#newReplyText").val();
 		
+		var replyCnt = $("#replyCnt").html(); 
+		
 		var sendData = {bno:bnoVal, replyer:replyerVal, replytext:replytextVal};
 		//이형태는 ?bno=bnoVal&replyer=........
 						
@@ -179,6 +181,8 @@
 					$("#newReplyWriter").val("");        
 					$("#newReplyText").val("");
 					$("#repliesDiv").trigger("click");  
+				    
+					$("#replyCnt").html(Number(replyCnt)+1);      
 				}
 			}
 		})
@@ -206,6 +210,7 @@
 	
 	var rno;
 	$(document).on("click","#replyBtn",function(){
+		var replyCnt = $("#replyCnt").html(); 
 		rno = $(this).parent().parent().find("strong").html();
 		// var removeno = $(this).parent().parent().parent();        
 		var con = confirm("삭제하시겠습니까??");
@@ -220,7 +225,8 @@
 					if(result=="success"){
 						alert("삭제되었습니다.");   
 					//	removeno.remove();         
-						$("#repliesDiv").trigger("click");    
+						$("#repliesDiv").trigger("click");
+						$("#replyCnt").html(Number(replyCnt)-1);       
 					}
 				}	
 			})

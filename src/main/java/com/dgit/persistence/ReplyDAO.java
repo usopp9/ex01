@@ -15,4 +15,6 @@ public interface ReplyDAO {
 	/*댓글  페이징*/
 	public List<ReplyVO> listPage(int bno,Criteria cri) throws Exception;
 	public int count(int bno) throws Exception;
+	
+	public int getBno(int rno)throws Exception;
 }

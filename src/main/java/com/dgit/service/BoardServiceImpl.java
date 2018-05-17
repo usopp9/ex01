@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dgit.domain.BoardVO;
 import com.dgit.domain.Criteria;
@@ -22,17 +23,21 @@ public class BoardServiceImpl implements BoardService{
 		dao.create(vo);
 	}
 
+	@Transactional
 	@Override
-	public BoardVO read(int bno) throws Exception {
-		
+	public BoardVO read(int bno,boolean isUpdateViewCnt) throws Exception {
+				
+		if(isUpdateViewCnt){
+			dao.readCnt(bno);
+		}
 		return	dao.read(bno);
 	}
-	
-	@Override
+	  
+	/*@Override
 	public void readCnt(int bno) throws Exception {
 	
-		dao.readCnt(bno);		
-	}
+		dao.readCnt(bno);	 	
+	}*/
 
 	@Override
 	public List<BoardVO> listAll() throws Exception {

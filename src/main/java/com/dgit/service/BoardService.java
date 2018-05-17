@@ -9,8 +9,8 @@ import com.dgit.domain.SearchCriteria;
 public interface BoardService {
 	
 	public void regist(BoardVO vo) throws Exception;
-	public BoardVO read(int bno) throws Exception;
-	public void readCnt(int bno) throws Exception;
+	public BoardVO read(int bno,boolean isUpdateViewCnt) throws Exception;
+//	public void readCnt(int bno) throws Exception;
 	public List<BoardVO> listAll() throws Exception;
 	public void modify(BoardVO vo) throws Exception;
 	public void remove(int bno) throws Exception;

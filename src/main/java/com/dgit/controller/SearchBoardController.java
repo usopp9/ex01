@@ -39,13 +39,13 @@ public class SearchBoardController {
 	}
 	
 	@RequestMapping(value="/readPage",method=RequestMethod.GET)
-	public void readPage(Model model, int bno,@ModelAttribute("cri") SearchCriteria cri) throws Exception{
+	public void readPage(Model model, int bno,boolean isUpdateViewCnt,@ModelAttribute("cri") SearchCriteria cri) throws Exception{
 		logger.info("board readPage Get.......");
 		logger.info("bno : "+bno);
 		logger.info("cri : "+cri.toString());
 		
-		BoardVO vo = service.read(bno);
-		service.readCnt(bno);
+		BoardVO vo = service.read(bno,isUpdateViewCnt);
+	//	service.readCnt(bno);
 		model.addAttribute("boardVO",vo);		
 	}
 	
@@ -61,16 +61,17 @@ public class SearchBoardController {
 	}
 	
 	@RequestMapping(value="/modifyPage",method=RequestMethod.GET)
-	public void modifyPageGet(int bno,Model model,@ModelAttribute("cri") SearchCriteria cri) throws Exception{
+	public void modifyPageGet(int bno,Model model,boolean isUpdateViewCnt,@ModelAttribute("cri") SearchCriteria cri) throws Exception{
 		logger.info("board modifyPage Get.......");
 		
-		BoardVO vo = service.read(bno);
+		isUpdateViewCnt=false;
+		BoardVO vo = service.read(bno, isUpdateViewCnt);
 		model.addAttribute("boardVO", vo);
 		
 	}
 	
 	@RequestMapping(value="/modifyPage",method=RequestMethod.POST)
-	public String modifyPage(BoardVO vo,int page,SearchCriteria cri,Model model) throws Exception{
+	public String modifyPage(BoardVO vo,int page,boolean isUpdateViewCnt,SearchCriteria cri,Model model) throws Exception{
 		logger.info("board modifyPage Post.......");
 		
 		service.modify(vo);
@@ -82,6 +83,7 @@ public class SearchBoardController {
 		model.addAttribute("page",page);
 		model.addAttribute("searchType", cri.getSearchType());
 		model.addAttribute("keyword", cri.getKeyword());
+		model.addAttribute("isUpdateViewCnt",false);
 		return "redirect:/sboard/readPage";	
 	}
 }

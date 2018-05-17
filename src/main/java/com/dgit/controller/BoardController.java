@@ -48,12 +48,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/read",method=RequestMethod.GET)
-	public void read(Model model, int bno) throws Exception{
+	public void read(Model model, int bno,boolean isUpdateViewCnt) throws Exception{
 		logger.info("board read Get.......");
 		logger.info("bno : "+bno);
 		
-		BoardVO vo = service.read(bno);
-		service.readCnt(bno);
+		BoardVO vo = service.read(bno,isUpdateViewCnt);
+	//	service.readCnt(bno);  
 		model.addAttribute("boardVO",vo);		
 	}
 	
@@ -65,15 +65,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify",method=RequestMethod.GET)
-	public void modify(int bno,Model model) throws Exception{
+	public void modify(int bno,Model model,boolean isUpdateViewCnt) throws Exception{
 		logger.info("board modify Get.......");
-		
-		BoardVO vo = service.read(bno);
+		isUpdateViewCnt=false;
+		BoardVO vo = service.read(bno,isUpdateViewCnt);
 		model.addAttribute("boardVO", vo);
 		
 	}
 	@RequestMapping(value="/modify",method=RequestMethod.POST)
-	public String modifyPost(BoardVO vo) throws Exception{
+	public String modifyPost(BoardVO vo,boolean isUpdateViewCnt) throws Exception{
 		logger.info("board modify Post.......");
 		
 		service.modify(vo);
@@ -81,7 +81,7 @@ public class BoardController {
 	/*	model.addAttribute("bno",vo.getBno());
 	 *  //?bno=2 같은 의미
 	 */		
-		return "redirect:/board/read?bno="+vo.getBno();	
+		return "redirect:/board/read?bno="+vo.getBno()+"&isUpdateViewCnt=true";	
 	}
 	/*---------------------------------------페이징처리------------------------------------------------------------------*/
 	//ex01/board/listPage
@@ -99,34 +99,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/readPage",method=RequestMethod.GET)
-	public void readPage(Model model, int bno,@ModelAttribute("cri") Criteria cri) throws Exception{
+	public void readPage(Model model, int bno,boolean isUpdateViewCnt,@ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("board readPage Get.......");
 		logger.info("bno : "+bno);
 		logger.info("cri : "+cri.toString());
 		
-		BoardVO vo = service.read(bno);
-		service.readCnt(bno);
+		BoardVO vo = service.read(bno,isUpdateViewCnt);
+	//	service.readCnt(bno);   
 		model.addAttribute("boardVO",vo);		
-	}
+	}  
 	
 	@RequestMapping(value="/removePage",method=RequestMethod.GET)
 	public String removePage(int bno,int page) throws Exception{
 		logger.info("board removePage Get.......");
 		service.remove(bno);
 		return "redirect:/board/listPage?page="+page;
-	}
+	}  
 	
 	@RequestMapping(value="/modifyPage",method=RequestMethod.GET)
-	public void modifyPageGet(int bno,Model model,@ModelAttribute("cri") Criteria cri) throws Exception{
+	public void modifyPageGet(int bno,Model model,boolean isUpdateViewCnt,@ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("board modifyPage Get.......");
-		
-		BoardVO vo = service.read(bno);
+		isUpdateViewCnt=false;
+		BoardVO vo = service.read(bno,isUpdateViewCnt);
 		model.addAttribute("boardVO", vo);
 		
 	}
 	
 	@RequestMapping(value="/modifyPage",method=RequestMethod.POST)
-	public String modifyPage(BoardVO vo,int page) throws Exception{
+	public String modifyPage(BoardVO vo,int page,boolean isUpdateViewCnt) throws Exception{
 		logger.info("board modifyPage Post.......");
 		
 		service.modify(vo);
@@ -134,6 +134,6 @@ public class BoardController {
 	/*	model.addAttribute("bno",vo.getBno());
 	 *  //?bno=2 같은 의미
 	 */		
-		return "redirect:/board/readPage?bno="+vo.getBno()+"&page="+page;	
+		return "redirect:/board/readPage?bno="+vo.getBno()+"&page="+page+"&isUpdateViewCnt=false";	
 	}
 }
