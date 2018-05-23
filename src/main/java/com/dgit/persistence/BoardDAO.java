@@ -29,4 +29,10 @@ public interface BoardDAO {
 	public int totalSearchCount(SearchCriteria cri) throws Exception;
 	
 	public void updateReplyCnt(int bno,int amount) throws Exception;
+	
+	public void addAttach(String fullName) throws Exception;
+	
+	public List<String> getAttach(int bno) throws Exception;
+	
+	public void deleteAttach(int bno) throws Exception;
 }

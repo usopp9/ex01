@@ -17,10 +17,20 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardDAO dao;
 	
+	@Transactional
 	@Override
 	public void regist(BoardVO vo) throws Exception {
 		
 		dao.create(vo);
+		/*이미지파일첨부*/
+		if(vo.getFiles() == null){ //파일선택없이 게시물 등록시를 대비함
+			return;
+		}
+		
+		for(String filename: vo.getFiles()){
+			dao.addAttach(filename);
+		}
+		
 	}
 
 	@Transactional
@@ -30,7 +40,10 @@ public class BoardServiceImpl implements BoardService{
 		if(isUpdateViewCnt){
 			dao.readCnt(bno);
 		}
-		return	dao.read(bno);
+		BoardVO vo = dao.read(bno);
+		List<String> files = dao.getAttach(bno);
+		vo.setFiles(files.toArray(new String[files.size()]));
+		return vo;
 	}
 	  
 	/*@Override
@@ -50,11 +63,13 @@ public class BoardServiceImpl implements BoardService{
 	
 		dao.update(vo);		
 	}
-
+	
+	@Transactional
 	@Override
 	public void remove(int bno) throws Exception {
-		
+		dao.deleteAttach(bno);
 		dao.delete(bno);
+		
 	}
 
 	@Override

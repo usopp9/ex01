@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp"%>
 
 <script src="${pageContext.request.contextPath}/resources/handlebars-v4.0.10.js"></script>
@@ -17,6 +18,9 @@
 						<input type="hidden" name="page" value="${cri.page}">
 						<input type="hidden" name="searchType" value="${cri.searchType}">
 						<input type="hidden" name="keyword" value="${cri.keyword}">
+						<c:forEach var="file" items="${boardVO.files }">
+							<input type="hidden" name="files" value="${file}">
+						</c:forEach>
 					</form>
 					<div class="form-group">
 						<label>TITLE</label>
@@ -29,6 +33,12 @@
 					<div class="form-group">
 						<label>WRITER</label>
 						<input type="text" name="writer" class="form-control" value="${boardVO.writer }" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<c:forEach var="file" items="${boardVO.files }">
+							<input type="hidden" name="files" value="${file}">
+							<img src="displayFile?filename=${file}">    
+						</c:forEach>
 					</div>
 				</div>
 				<div class="box-footer">
@@ -52,6 +62,7 @@
 						if(con==false){ 
 							return false;
 						}
+						
 						$("#f1").attr("action","removePage");
 						$("#f1").submit();
 					})

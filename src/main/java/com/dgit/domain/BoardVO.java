@@ -1,6 +1,7 @@
 package com.dgit.domain;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 public class BoardVO {
 	private int bno;
@@ -10,6 +11,7 @@ public class BoardVO {
 	private Date regdate;
 	private int viewcnt;
 	private int replycnt;
+	private String[] files;
 	
 	public int getBno() {
 		return bno;
@@ -55,10 +57,18 @@ public class BoardVO {
 		this.replycnt = replycnt;
 	}
 	
+	
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + "]";
+				+ regdate + ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", files=" + Arrays.toString(files)
+				+ "]";
 	}
 	
 	

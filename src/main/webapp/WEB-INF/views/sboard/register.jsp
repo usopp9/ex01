@@ -10,7 +10,7 @@
 					<h3 class=box-title>Register Board</h3>
 				</div>
 				<div class="box-body">
-					<form role="form" action="register" method="post">
+					<form role="form" action="register" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label>Title</label>
 							<input type="text" name="title" class="form-control" placeholder="Enter Title">
@@ -23,6 +23,10 @@
 						<div class="form-group">
 							<label>Writer</label>
 							<input type="text" name="writer" class="form-control" placeholder="Enter Writer">
+						</div>
+						<div class="form-group">
+							<label>Files</label>
+							<input type="file" name="imageFiles" multiple="multiple" class="form-control">
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary">Submit</button>

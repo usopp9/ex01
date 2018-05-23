@@ -95,6 +95,22 @@ public class BoardDAOImpl implements BoardDAO{
 		
 	}
 
-	
+	@Override
+	public void addAttach(String fullName) throws Exception {
+		
+		session.insert(namespace+".addAttach",fullName);
+	}
+
+	@Override
+	public List<String> getAttach(int bno) throws Exception {
+		
+		return session.selectList(namespace+".getAttach",bno);
+	}
+
+	@Override
+	public void deleteAttach(int bno) throws Exception {
+		
+		session.delete(namespace+".deleteAttach",bno);
+	}
 
 }
