@@ -23,13 +23,20 @@ public class BoardServiceImpl implements BoardService{
 		
 		dao.create(vo);
 		/*이미지파일첨부*/
-		if(vo.getFiles() == null){ //파일선택없이 게시물 등록시를 대비함
+		/*if(vo.getFiles() == null){ //파일선택없이 게시물 등록시를 대비함
 			return;
 		}
 		
 		for(String filename: vo.getFiles()){
 			dao.addAttach(filename);
+		}*/
+		if(vo.getFiles() != null){ 
+			for(String filename: vo.getFiles()){
+				dao.addAttach(filename);
+			}
 		}
+		
+		
 		
 	}
 
@@ -60,8 +67,17 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void modify(BoardVO vo) throws Exception {
-	
+		
 		dao.update(vo);		
+		/*이미지파일첨부*/
+		if(vo.getFiles() == null){ //파일선택없이 게시물 등록시를 대비함
+			return;
+		}
+		
+		for(String filename: vo.getFiles()){
+			dao.updateAttach(filename,vo.getBno());
+		}
+		
 	}
 	
 	@Transactional
@@ -95,5 +111,19 @@ public class BoardServiceImpl implements BoardService{
 		
 		return dao.totalSearchCount(cri);
 	}
+
+	@Override
+	public void deleteAttach(int bno) throws Exception {
+		
+		dao.deleteAttach(bno);
+	}
+
+	@Override
+	public void updateDeleAttach(String fullName) throws Exception {
+		
+		dao.updateDeleAttach(fullName);
+	}
+
+
 
 }

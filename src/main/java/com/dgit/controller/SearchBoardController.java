@@ -54,14 +54,20 @@ public class SearchBoardController {
 		logger.info(vo.toString());
 		
 		ArrayList<String> list = new ArrayList<>();
-		for(MultipartFile file : imageFiles){
-			logger.info("filename : " + file.getOriginalFilename());
-			
-			String thumb = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-			list.add(thumb);
+		
+		/*사진없을시 에러 수정*/
+		if(imageFiles.isEmpty()==false){
+			for(MultipartFile file : imageFiles){
+				logger.info("filename : " + file.getOriginalFilename());
+				
+				String thumb = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+				list.add(thumb);
+			}
+			/*  ArrayList -> String*/
+			vo.setFiles(list.toArray(new String[list.size()]));
 		}
-		/*  ArrayList -> String*/
-		vo.setFiles(list.toArray(new String[list.size()]));
+		
+		
 		service.regist(vo);
 			
 		return "redirect:/sboard/listPage";
@@ -97,9 +103,12 @@ public class SearchBoardController {
 		logger.info("board removePage Get.......");
 		
 		logger.info("filename : "+ files);
-		for(String file:files){
-			
-		UploadFileUtils.deleteFile(uploadPath, file);
+		
+		if(files !=null ){
+			for(String file:files){
+				
+			UploadFileUtils.deleteFile(uploadPath, file);
+			}
 		}
 		service.remove(bno); 
 
@@ -124,17 +133,28 @@ public class SearchBoardController {
 	public String modifyPage(BoardVO vo,int page,boolean isUpdateViewCnt,SearchCriteria cri,Model model,String[] oldfiles,List<MultipartFile> imageFiles) throws Exception{
 		logger.info("board modifyPage Post.......");
 		
+		ArrayList<String> list = new ArrayList<>();
 		if(imageFiles.isEmpty()==false){
-		for(MultipartFile file: imageFiles){
-			logger.info("imageFiles : "+ file);  
+			for(MultipartFile file: imageFiles){
+				String thumb = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+				list.add(thumb);
 			}
+			/*  ArrayList -> String*/
+			vo.setFiles(list.toArray(new String[list.size()]));
+
 		}
 		/*수정중*/
-		if(oldfiles.length>0){
-		for(String file: oldfiles){
-			logger.info("oldfiles : "+ file);  
+		if(oldfiles!=null ){
+			for(String file: oldfiles){
+				
+				UploadFileUtils.deleteFile(uploadPath, file);
+				service.updateDeleAttach(file);
+				
 			}  
 		}
+		
+				
+		
 		service.modify(vo);
 		  
 	/*	model.addAttribute("bno",vo.getBno());  

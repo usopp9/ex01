@@ -89,4 +89,12 @@
 	<delete id="deleteAttach">
 		delete from tbl_attach where bno = #{bno}
 	</delete>
+	
+	<insert id="updateAttach">
+		insert into tbl_attach (fullName, bno) values(#{fullName}, #{bno})
+	</insert>
+	
+	<delete id="updateDeleAttach">
+		delete from tbl_attach where fullName = #{fullName}
+	</delete>
 </mapper>

@@ -35,4 +35,8 @@ public interface BoardDAO {
 	public List<String> getAttach(int bno) throws Exception;
 	
 	public void deleteAttach(int bno) throws Exception;
+	
+	public void updateAttach(String fullName,int bno) throws Exception;
+	
+	public void updateDeleAttach(String fullName)throws Exception;
 }

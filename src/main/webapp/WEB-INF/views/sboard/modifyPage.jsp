@@ -81,7 +81,7 @@
 					$(".deleteimg").click(function(){   
 						var imgpath = $(this).parent().find("img").attr("src");  
 						var img = imgpath.substring(imgpath.lastIndexOf("=") + 1);
-						var taginput ="<input type='text' name='oldfiles' value='"+img+"'>";    
+						var taginput ="<input type='hidden' name='oldfiles' value='"+img+"'>";    
 						$(this).parent().remove();    
 						$("#inputhidden").append(taginput);
 						

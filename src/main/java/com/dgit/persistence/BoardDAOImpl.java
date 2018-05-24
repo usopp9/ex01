@@ -113,4 +113,21 @@ public class BoardDAOImpl implements BoardDAO{
 		session.delete(namespace+".deleteAttach",bno);
 	}
 
+	@Override
+	public void updateAttach(String fullName, int bno) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fullName", fullName);
+		map.put("bno", bno);
+		
+		session.insert(namespace+".updateAttach",map);
+	}
+
+	@Override
+	public void updateDeleAttach(String fullName) throws Exception {
+		
+		session.delete(namespace+".updateDeleAttach",fullName);
+	}
+
+	
+
 }

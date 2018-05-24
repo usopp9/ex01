@@ -20,4 +20,8 @@ public interface BoardService {
 	
 	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception;
 	public int totalSearchCount(SearchCriteria cri) throws Exception;
+	
+	public void deleteAttach(int bno) throws Exception;
+
+	public void updateDeleAttach(String fullName)throws Exception;
 }
