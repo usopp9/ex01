@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
   <head>
@@ -244,7 +244,15 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="${pageContext.request.contextPath }/resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  
+                  <c:if test="${login != null}">  
+                  	<span class="hidden-xs">${login.uid } [${login.uname }]</span>
+                  </c:if>
+                 
+                  <c:if test="${login == null}">
+                  	<span class="hidden-xs">Alexander Pierce</span>
+                  </c:if>
+                  
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -272,12 +280,21 @@
                     <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div>
+                    <c:if test="${login !=null }">
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="${pageContext.request.contextPath }/user/logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
+                    </c:if>
+                     <c:if test="${login ==null }">
+                    <div class="pull-right">
+                      <a href="${pageContext.request.contextPath }/user/login" class="btn btn-default btn-flat">Sign In</a>
+                    </div>
+                    </c:if>
                   </li>
                 </ul>
               </li>
+              
+              
               <!-- Control Sidebar Toggle Button -->
               <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -286,6 +303,7 @@
           </div>
         </nav>
       </header>
+     
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->

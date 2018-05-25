@@ -42,8 +42,10 @@
 					</div>
 				</div>
 				<div class="box-footer">
+					<c:if test="${boardVO.writer == login.uid }">
 					<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
 					<button type="submit" class="btn btn-danger" id="deleteBtn">Delete</button>
+					</c:if>
 					<button type="submit" class="btn btn-primary" id="goListBtn">GO LIST</button>
 				</div>
 				<script type="text/javascript">
@@ -78,7 +80,7 @@
 				</div>
 				<div class="box-body">
 					<label>Writer</label>
-					<input class="form-control" type="text" placeholder="User ID" id="newReplyWriter">
+					<input class="form-control" type="text" readonly="readonly" value="${login.uid }" id="newReplyWriter">
 					
 					<label>Reply Text</label>
 					<input class="form-control" type="text" placeholder="Reply Text" id="newReplyText">
@@ -188,8 +190,7 @@
 			success:function(result){
 				console.log(result);     
 				if(result == "succes"){               
-					alert("등록되었습니다.");      
-					$("#newReplyWriter").val("");        
+					alert("등록되었습니다.");              
 					$("#newReplyText").val("");
 					$("#repliesDiv").trigger("click");  
 				    

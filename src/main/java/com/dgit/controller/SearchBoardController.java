@@ -56,7 +56,7 @@ public class SearchBoardController {
 		ArrayList<String> list = new ArrayList<>();
 		
 		/*사진없을시 에러 수정*/
-		if(imageFiles.isEmpty()==false){
+		if(!imageFiles.get(0).getOriginalFilename().equals("")){
 			for(MultipartFile file : imageFiles){
 				logger.info("filename : " + file.getOriginalFilename());
 				
@@ -134,7 +134,7 @@ public class SearchBoardController {
 		logger.info("board modifyPage Post.......");
 		
 		ArrayList<String> list = new ArrayList<>();
-		if(imageFiles.isEmpty()==false){
+		if(!imageFiles.get(0).getOriginalFilename().equals("")){
 			for(MultipartFile file: imageFiles){
 				String thumb = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 				list.add(thumb);
