@@ -189,7 +189,6 @@
 		
 		var sendData = {bno:bnoVal, replyer:replyerVal, replytext:replytextVal};
 		//이형태는 ?bno=bnoVal&replyer=........
-						
 		//@requestBody, JSON.stringify, headers-Content-Type
 		$.ajax({
 			type:"post",
